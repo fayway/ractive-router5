@@ -21,12 +21,5 @@ new Ractive({
     <RouterProvider router="{{router}}">
       <App></App>
     </RouterProvider>
-  `,
-  oninit() {
-    //todo
-    //this.get('router').canActivate('inbox', () => {
-    //  console.log('canDeactive inbox', this);
-    //  return false;
-    //});
-  }
+  `
 });
