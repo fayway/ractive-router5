@@ -1,0 +1,62 @@
+{
+  "name": "ractive-router5",
+  "version": "0.1.0",
+  "main": "dist/ractive-router5.js",
+  "module": "dist/ractive-router5.es.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c rollup.config.js && uglifyjs dist/ractive-router5.js -cm --comments -o dist/ractive-router5.min.js",
+    "test": "cross-env NODE_ENV=test mocha-webpack --opts config/mocha-webpack.opts",
+    "cover": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text mocha-webpack --opts config/mocha-webpack.opts",
+    "start": "webpack-dev-server --config example/webpack.config.js --profile --inline --progress"
+  },
+  "nyc": {
+    "include": [
+      "src/*.js"
+    ],
+    "exclude": [
+      "src/*.spec.js"
+    ],
+    "instrument": false,
+    "sourceMap": false
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "chai": "^3.5.0",
+    "cross-env": "^4.0.0",
+    "istanbul-instrumenter-loader": "^2.0.0",
+    "jsdom": "^9.12.0",
+    "jshint": "^2.9.4",
+    "mocha": "^3.2.0",
+    "mocha-webpack": "next",
+    "nyc": "^10.2.0",
+    "ractive": "0.8",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-buble": "^0.15.0",
+    "router5": "^4.5.1",
+    "sinon": "^2.1.0",
+    "uglifyjs": "^2.4.10",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.5.4"
+  },
+  "peerDependencies": {
+    "ractive": "^0.8.12",
+    "router5": "^4.5.1"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "router5": "^4.5.2",
+    "webpack": "^2.3.3"
+  }
+}
