@@ -1,19 +1,27 @@
 import Ractive from 'ractive';
-import Nav from './Nav';
-import Main from './Main';
+import Inbox from './Inbox';
+import Compose from './Compose';
+import NotFound from './NotFound';
 
 export default Ractive.extend({
   components: {
-    Nav,
-    Main
+    Inbox,
+    Compose,
+    NotFound
   },
   template: `
     <div class='mail-client'>
       <aside>
-        <Nav />
+        <nav>
+          <BaseLink routeName="inbox">Inbox</BaseLink>
+          <BaseLink routeName="compose">Compose</BaseLink>
+          <a href="/#contacts">Contacts</a>
+        </nav>
       </aside>
       <main>
-        <Main />
+        <NodeRoute routeNode="inbox"><Inbox /></NodeRoute>
+        <NodeRoute routeNode="compose"><Compose /></NodeRoute>
+        <NodeRoute routeNode="notfound"><NotFound /></NodeRoute>
       </main>
     </div>
   `,

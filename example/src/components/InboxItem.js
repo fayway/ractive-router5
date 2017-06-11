@@ -4,7 +4,7 @@ export default Ractive.extend({
   template: `
     <li on-click="@this.clickHandler(mail.id)">
       <h4>{{mail.mailTitle}}</h4>
-      <p>{{mail.mailMessage}}</p>
+      <p>{{{mail.mailMessage}}}</p>
     </li>
   `,
   clickHandler(id) {

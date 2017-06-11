@@ -6,12 +6,10 @@ export default Ractive.extend({
         {{>content}}
     </a>
   `,
-  data() {
-    return {
-      activeClassName: 'active',
-      strictEquality: true,
-      ignoreQueryParams: true
-    };
+  data: {
+    activeClassName: 'active',
+    strictEquality: true,
+    ignoreQueryParams: true
   },
   getRouter() {
     const routerProvider = this.findParent('RouterProvider');

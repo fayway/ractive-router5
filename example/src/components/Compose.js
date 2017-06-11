@@ -8,8 +8,7 @@ export default Ractive.extend({
   oninit() {
     const router = this.get('router');
     //todo
-    //router.canDeactivate('compose', this.canDeactivate.bind(this));
-    router.canDeactivate('compose', false);
+    router.canDeactivate('compose', this.canDeactivate.bind(this));
   },
   canDeactivate() {
     if (this.get('title') || this.get('message')) {
@@ -20,13 +19,11 @@ export default Ractive.extend({
     return true;
   },
   template: `
-    <NodeRoute>
-      <div class='compose'>
-        <h4>Compose a new message</h4>
-        <input name='title' value={{title}} />
-        <textarea name='message' value={{message}} />
-        {{#if warning}}<p>Clear inputs before continuing</p>{{/if}}
-      </div>
-    </NodeRoute>
+    <div class='compose'>
+      <h4>Compose a new message</h4>
+      <input name='title' value={{title}} />
+      <textarea name='message' value={{message}} />
+      {{#if warning}}<p>Clear inputs before continuing</p>{{/if}}
+    </div>
   `
 });

@@ -40,7 +40,7 @@ Your app entry point
 ```javascript
 import Ractive from 'ractive';
 import RouterProvider from 'ractive-router5/RouterProvider';
-import configureRouter from 'ractive-router5/configureRouter';
+import configureRouter from createRouter;
 
 import routes from './routes';
 import { Inbox, Compose, Contacts, NotFound} from './components';

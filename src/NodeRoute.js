@@ -6,10 +6,8 @@ export default Ractive.extend({
       {{yield}}
     {{/if}}
   `,
-  data(){
-    return {
-      active: false
-    };
+  data: {
+    active: false
   },
   oninit() {
     this.observe('route', (route) => {

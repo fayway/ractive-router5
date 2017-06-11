@@ -1,18 +1,18 @@
 import BaseLink from './BaseLink';
-import configureRouter from './configureRouter';
+import createRouter from './createAppRouter';
 import RouterProvider from './RouterProvider';
 import NodeRoute from './NodeRoute';
 
 export default {
   BaseLink,
-  configureRouter,
+  createRouter,
   RouterProvider,
   NodeRoute
 };
 
 export {
   BaseLink,
-  configureRouter,
+  createAppRouter,
   RouterProvider,
   NodeRoute
 };

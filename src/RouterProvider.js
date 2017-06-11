@@ -6,10 +6,8 @@ Ractive.components.BaseLink = BaseLink;
 Ractive.components.NodeRoute = NodeRoute;
 
 export default Ractive.extend({
-  data() {
-    return {
-      route: null
-    };
+  data: {
+    route: null
   },
   template: `
       {{>content}}
@@ -25,7 +23,6 @@ export default Ractive.extend({
   },
   oncomplete(){
     this.router.start();
-    this.router.navigate('inbox')
   },
   onteardown() {
     this.router.removeListener(this.mapRouteStateToData);

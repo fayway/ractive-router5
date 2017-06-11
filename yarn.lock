@@ -3087,9 +3087,9 @@ router5.transition-path@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/router5.transition-path/-/router5.transition-path-4.0.1.tgz#6d61d6b78e233aeff2e68f3b91b9a83338c2f723"
 
-router5@^4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/router5/-/router5-4.5.2.tgz#2d44e2ec5fae31d1953c7f2e7a68da399b2f5bb4"
+router5@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/router5/-/router5-4.6.0.tgz#c47aff727bedb2cc53ad4783a2fc3569985d0571"
   dependencies:
     route-node "1.8.2"
     router5.transition-path "4.0.1"

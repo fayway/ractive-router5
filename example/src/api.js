@@ -2,7 +2,7 @@ const emails = [
     {
         "id": "1",
         "mailTitle": "Why router5?",
-        "mailMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        "mailMessage": "When using Angular, Vue or React, the question of the router to use doesn't arise at all. This is not the case when your app is built on top af a pure UI library like Ractive.js. In the other side, router5 seems so flexible and so powerful to be the first choice as a framework agnostic router"
     },
     {
         "id": "2",

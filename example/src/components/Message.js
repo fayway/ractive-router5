@@ -14,11 +14,9 @@ export default Ractive.extend({
     })
   },
   template: `
-    <NodeRoute>
-      <section class='mail'>
-        <h4>{{mailTitle}}</h4>
-        <p>{{mailMessage}}</p>
-      </section>
-    </NodeRoute>
+    <section class='mail'>
+      <h4>{{mailTitle}}</h4>
+      <p>{{mailMessage}}</p>
+    </section>
   `
 });

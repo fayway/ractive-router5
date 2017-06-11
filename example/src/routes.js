@@ -1,8 +1,10 @@
+import { constants } from 'router5';
+
 export default [
   {
     name: 'inbox',
     path: '/inbox',
-    home: true,
+    default: true,
     children: [
       {
         name: 'message',
@@ -18,6 +20,10 @@ export default [
     name: 'notfound',
     path: '/notfound',
     default: true
+  },
+  {
+    name: constants.UNKNOWN_ROUTE,
+    path: '/not-found'
   }
 ];
 

@@ -9,12 +9,10 @@ export default Ractive.extend({
     Message
   },
   template: `
-    <NodeRoute>
-      <div class='inbox'>
-          <InboxList routeNode="inbox" emails={{emails}} />
-          <Message routeNode="inbox.message" messageId={{ route.params.id }} />
-      </div>
-    </NodeRoute>
+    <div class='inbox'>
+      <NodeRoute routeNode="inbox"><InboxList emails={{emails}} /></NodeRoute>
+      <NodeRoute routeNode="inbox.message"><Message messageId={{ route.params.id }} />
+    </div>
   `,
   oninit() {
     this.set('emails', getEmails());
