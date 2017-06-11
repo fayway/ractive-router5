@@ -4,7 +4,7 @@ export default [
   {
     name: 'inbox',
     path: '/inbox',
-    default: true,
+    home: true,
     children: [
       {
         name: 'message',
