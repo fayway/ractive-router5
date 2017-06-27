@@ -9,7 +9,7 @@ module.exports = () => {
     },
     target: 'node',
     externals: [nodeExternals()],
-    devtool: "inline-cheap-module-source-map",
+    devtool: "#inline-cheap-module-source-map",
     plugins: [
       new webpack.DefinePlugin({
         '__IS_DEV__': false,

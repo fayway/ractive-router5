@@ -2,7 +2,10 @@ import {describe, it, before, after} from 'mocha';
 import {expect} from 'chai';
 import Ractive from 'ractive';
 
+import RouterProvider from './RouterProvider';
 import NodeRoute from './NodeRoute';
+
+import { fakeRouter } from './TestUtils'
 
 describe('NodeRoute', () => {
 
@@ -19,9 +22,16 @@ describe('NodeRoute', () => {
     new Ractive({
       el: this.container,
       components: {
+        RouterProvider,
         NodeRoute
       },
-      template: `<NodeRoute><div id="content"></div></NodeRoute>`,
+      data: {
+        fakeRouter
+      },
+      template: `
+        <RouterProvider router="{{fakeRouter}}">
+            <NodeRoute><div id="content"></div></NodeRoute>
+        </RouterProvider>`,
       oncomplete(){
         expect(this.find('#content')).to.be.undefined;
         done();
@@ -33,16 +43,23 @@ describe('NodeRoute', () => {
     new Ractive({
       el: this.container,
       components: {
+        RouterProvider,
         NodeRoute
       },
-      template: `<NodeRoute routeNode="home"><div id="content"></div></NodeRoute>`,
+      data: {
+        fakeRouter
+      },
+      template: `
+        <RouterProvider router="{{fakeRouter}}">
+            <NodeRoute routeNode="home"><div id="content"></div></NodeRoute>
+        </RouterProvider>`,
       oncomplete(){
         expect(this.find('#content')).to.be.undefined;
         //
-        this.set('route', {name: 'bob'});
+        this.findComponent('RouterProvider').set('route', {name: 'bob'});
         expect(this.find('#content')).to.be.undefined;
         //
-        this.set('route', {name: 'home'});
+        this.findComponent('RouterProvider').set('route', {name: 'home'});
         expect(this.find('#content')).to.be.ok;
         done();
       }

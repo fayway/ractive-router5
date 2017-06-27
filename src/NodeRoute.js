@@ -7,12 +7,13 @@ export default Ractive.extend({
     {{/if}}
   `,
   data: {
+    route: undefined,
     active: false
   },
   oninit() {
     const routerProvider = this.findParent('RouterProvider');
     if (!routerProvider) {
-      throw new Error('BaseLink Component must be placed within a RouterProvider Component');
+      throw new Error('NodeRoute Component must be placed within a RouterProvider Component');
     }
     routerProvider.observe('route', (route) => {
       this.set('route', route);
