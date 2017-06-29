@@ -15,6 +15,10 @@ export default Ractive.extend({
     </div>
   `,
   oninit() {
+    console.log('Inbox oninit');
     this.set('emails', getEmails());
+  },
+  oncomplete() {
+    console.log('Inbox oncomplete');
   }
 });

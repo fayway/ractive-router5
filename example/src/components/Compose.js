@@ -6,6 +6,8 @@ export default Ractive.extend({
     message: undefined
   },
   oninit() {
+    console.log('Compose oninit');
+
     const router = this.get('router');
     //todo
     router.canDeactivate('compose', this.canDeactivate.bind(this));
@@ -25,5 +27,11 @@ export default Ractive.extend({
       <textarea name='message' value={{message}} />
       {{#if warning}}<p>Clear inputs before continuing</p>{{/if}}
     </div>
-  `
+  `,
+  oncomplete() {
+    console.log('Compose oncomplete');
+  },
+  onteardown() {
+    console.log('Compose onteardown');
+  }
 });

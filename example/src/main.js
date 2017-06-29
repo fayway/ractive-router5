@@ -4,28 +4,24 @@ import App from './components/App';
 
 import router from './router';
 
-//router.start(()=>{
-  new Ractive({
-    el: '#app',
-    components: {
-      RouterProvider,
-      App
-    },
-    data() {
-      return {
-        router
-      };
-    },
-    template: `
-      <RouterProvider router="{{router}}">
-        <App></App>
-      </RouterProvider>
-    `,
-    oncomplete() {
-      //router.start()
-      // +router.navigate('inbox')
-    }
-  });
-
-// })
-
+new Ractive({
+  el: '#app',
+  components: {
+    RouterProvider,
+    App
+  },
+  data: {
+    router
+  },
+  template: `
+    <RouterProvider router="{{router}}">
+      <App></App>
+    </RouterProvider>
+  `,
+  oninit() {
+    console.log('Main oninit')
+  },
+  oncomplete() {
+    console.log('Main oncomplete')
+  }
+});

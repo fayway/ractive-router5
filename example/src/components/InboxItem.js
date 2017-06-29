@@ -9,5 +9,11 @@ export default Ractive.extend({
   `,
   clickHandler(id) {
     this.get('router').navigate('inbox.message', {id});
+  },
+  oninit() {
+    console.log('InboxItem oninit');
+  },
+  oncomplete() {
+    console.log('InboxItem oncomplete');
   }
 });

@@ -3,6 +3,8 @@ import {getEmail} from '../api';
 
 export default Ractive.extend({
   oninit() {
+    console.log('Message oninit');
+
     this.observe('messageId', (messageId) => {
       if (messageId) {
         const { mailTitle, mailMessage } = getEmail(messageId);
@@ -18,5 +20,8 @@ export default Ractive.extend({
       <h4>{{mailTitle}}</h4>
       <p>{{mailMessage}}</p>
     </section>
-  `
+  `,
+  oncomplete() {
+    console.log('Message oncomplete');
+  }
 });

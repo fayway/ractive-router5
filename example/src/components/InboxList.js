@@ -11,5 +11,11 @@ export default Ractive.extend({
             <InboxItem main={{mail}} />
         {{/each}}
     </ul>
-  `
+  `,
+  oninit() {
+    console.log('InboxList oninit');
+  },
+  oncomplete() {
+    console.log('InboxList oncomplete');
+  }
 });
