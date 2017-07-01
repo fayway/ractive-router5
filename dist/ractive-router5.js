@@ -4,20 +4,18 @@
 	(factory((global.RactiveRouter5 = global.RactiveRouter5 || {}),global.Ractive,global.createRouter,global.loggerPlugin,global.listenersPlugin,global.browserPlugin));
 }(this, (function (exports,Ractive,createRouter,loggerPlugin,listenersPlugin,browserPlugin) { 'use strict';
 
-Ractive = 'default' in Ractive ? Ractive['default'] : Ractive;
-createRouter = 'default' in createRouter ? createRouter['default'] : createRouter;
-loggerPlugin = 'default' in loggerPlugin ? loggerPlugin['default'] : loggerPlugin;
-listenersPlugin = 'default' in listenersPlugin ? listenersPlugin['default'] : listenersPlugin;
-browserPlugin = 'default' in browserPlugin ? browserPlugin['default'] : browserPlugin;
+Ractive = Ractive && 'default' in Ractive ? Ractive['default'] : Ractive;
+createRouter = createRouter && 'default' in createRouter ? createRouter['default'] : createRouter;
+loggerPlugin = loggerPlugin && 'default' in loggerPlugin ? loggerPlugin['default'] : loggerPlugin;
+listenersPlugin = listenersPlugin && 'default' in listenersPlugin ? listenersPlugin['default'] : listenersPlugin;
+browserPlugin = browserPlugin && 'default' in browserPlugin ? browserPlugin['default'] : browserPlugin;
 
 var BaseLink = Ractive.extend({
   template: "\n    <a href=\"{{path}}\" class=\"{{linkClassName}}\">\n        {{>content}}\n    </a>\n  ",
-  data: function data() {
-    return {
-      activeClassName: 'active',
-      strictEquality: true,
-      ignoreQueryParams: true
-    };
+  data: {
+    activeClassName: 'active',
+    strictEquality: true,
+    ignoreQueryParams: true
   },
   getRouter: function getRouter() {
     var routerProvider = this.findParent('RouterProvider');
@@ -49,37 +47,36 @@ var BaseLink = Ractive.extend({
   }
 });
 
-function configureRouter(routes, useListenersPlugin) {
-  if ( useListenersPlugin === void 0 ) useListenersPlugin = false;
-
+function createAppRouter$1(routes) {
   var defaultRouteConf = routes.find(function (route) { return route.default === true; });
 
   var router = createRouter(routes, {
       defaultRoute: defaultRouteConf ? defaultRouteConf.name : undefined,
+      allowNotFound: true
     })
     .usePlugin(loggerPlugin)
+    .usePlugin(listenersPlugin())
     .usePlugin(browserPlugin({
       useHash: true
     }));
-
-  if (useListenersPlugin) {
-    router.usePlugin(listenersPlugin());
-  }
 
   return router;
 }
 
 var NodeRoute = Ractive.extend({
   template: "\n    {{#if active}}\n      {{yield}}\n    {{/if}}\n  ",
-  data: function data(){
-    return {
-      active: false
-    };
+  data: {
+    route: undefined,
+    active: false
   },
   oninit: function oninit() {
     var this$1 = this;
 
-    this.observe('route', function (route) {
+    var routerProvider = this.findParent('RouterProvider');
+    if (!routerProvider) {
+      throw new Error('NodeRoute Component must be placed within a RouterProvider Component');
+    }
+    routerProvider.observe('route', function (route) {
       this$1.set('route', route);
       this$1.set('active', route && route.name.indexOf(this$1.get('routeNode')) === 0);
     });
@@ -90,10 +87,8 @@ Ractive.components.BaseLink = BaseLink;
 Ractive.components.NodeRoute = NodeRoute;
 
 var RouterProvider = Ractive.extend({
-  data: function data() {
-    return {
-      route: null
-    };
+  data: {
+    route: null
   },
   template: "\n      {{>content}}\n  ",
   oninit: function oninit() {
@@ -109,7 +104,6 @@ var RouterProvider = Ractive.extend({
   },
   oncomplete: function oncomplete(){
     this.router.start();
-    this.router.navigate('inbox');
   },
   onteardown: function onteardown() {
     this.router.removeListener(this.mapRouteStateToData);
@@ -118,14 +112,14 @@ var RouterProvider = Ractive.extend({
 
 var index = {
   BaseLink: BaseLink,
-  configureRouter: configureRouter,
+  createRouter: createAppRouter$1,
   RouterProvider: RouterProvider,
   NodeRoute: NodeRoute
 };
 
 exports['default'] = index;
 exports.BaseLink = BaseLink;
-exports.configureRouter = configureRouter;
+exports.createAppRouter = createAppRouter;
 exports.RouterProvider = RouterProvider;
 exports.NodeRoute = NodeRoute;
 

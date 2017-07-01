@@ -5,7 +5,17 @@ import Ractive from 'ractive';
 import RouterProvider from './RouterProvider';
 import NodeRoute from './NodeRoute';
 
-import { fakeRouter } from './TestUtils'
+const fakeRouter = {
+  callbacks: [],
+  addListener(callback){
+    this.callbacks.push(callback);
+  },
+  removeListener(callback){
+    this.callbacks = this.callbacks.filter(cb => cb !== callback);
+  },
+  start() {
+  }
+};
 
 describe('NodeRoute', () => {
 
@@ -64,5 +74,22 @@ describe('NodeRoute', () => {
         done();
       }
     })
+  });
+
+  it('should throw an error if not placed inside a RouterProvider Component', (done) => {
+    try {
+      new Ractive({
+        el: this.container,
+        components: {
+          NodeRoute
+        },
+        template: `
+          <div>
+            <NodeRoute routeNode="home"><div id="content"></div></NodeRoute>
+          </div>`,
+      });
+    } catch (e) {
+      done();
+    }
   });
 });

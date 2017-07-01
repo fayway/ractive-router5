@@ -3,7 +3,7 @@ import loggerPlugin from 'router5/plugins/logger';
 import listenersPlugin from 'router5/plugins/listeners';
 import browserPlugin from 'router5/plugins/browser';
 
-export default function createAppRouter(routes, options = { useListenersPlugin: false }) {
+export default function createAppRouter(routes) {
   const defaultRouteConf = routes.find(route => route.default === true);
 
   const router = createRouter(routes, {
@@ -11,13 +11,10 @@ export default function createAppRouter(routes, options = { useListenersPlugin: 
       allowNotFound: true
     })
     .usePlugin(loggerPlugin)
+    .usePlugin(listenersPlugin())
     .usePlugin(browserPlugin({
       useHash: true
     }));
-
-  if (options.useListenersPlugin) {
-    router.usePlugin(listenersPlugin());
-  }
 
   return router;
 }
