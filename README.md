@@ -39,8 +39,7 @@ Your app entry point
 
 ```javascript
 import Ractive from 'ractive';
-import RouterProvider from 'ractive-router5/RouterProvider';
-import configureRouter from createRouter;
+import { createRouter, RouterProvider } from 'ractive-router5';
 
 import routes from './routes';
 import { Inbox, Compose, Contacts, NotFound} from './components';
@@ -49,19 +48,19 @@ new Ractive({
   el: '#app',
   components: {
     RouterProvider,
-    App
+    Inbox, Compose, Contacts, NotFound
   },
   data() {
     return {
-      router: configureRouter(routes, true)
+      router: configureRouter(routes)
     };
   },
   template: `
     <RouterProvider router="{{router}}">
-      <Inbox routeNode="inbox"></Inbox>
-      <Compose routeNode="compose"></Compose>
-      <Contacts routeNode="contacts"></Contacts>
-      <NotFound routeNode="notfound"></NotFound>
+      <NodeRoute routeNode="inbox"><Inbox /></NodeRoute>
+      <NodeRoute routeNode="compose"><Compose /></NodeRoute>
+      <NodeRoute routeNode="contacts"><Contacts /></NodeRoute>
+      <NodeRoute routeNode="notfound"><NotFound /></NodeRoute>
     </RouterProvider>
   `
 });
@@ -74,10 +73,10 @@ Inbox example
 ```javascript
 export default Ractive.extend({
   template: `
-    <NodeRoute>
+    <NodeRoute routeNode="inbox">
       <div class='inbox'>
-          <InboxList routeNode="inbox" emails={{emails}} />
-          <Message routeNode="inbox.message" messageId={{ route.params.id }} />
+          <NodeRoute routeNode="inbox"><InboxList emails={{emails}} /></NodeRoute>
+          <NodeRoute routeNode="inbox.message"><Message messageId={{ route.params.id }} /></NodeRoute>
       </div>
     </NodeRoute>
   `

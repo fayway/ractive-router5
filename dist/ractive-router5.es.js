@@ -41,7 +41,7 @@ var BaseLink = Ractive.extend({
   }
 });
 
-function createAppRouter$1(routes) {
+function createAppRouter(routes) {
   var defaultRouteConf = routes.find(function (route) { return route.default === true; });
 
   var router = createRouter(routes, {
@@ -114,9 +114,9 @@ var RouterProvider = Ractive.extend({
 
 var index = {
   BaseLink: BaseLink,
-  createRouter: createAppRouter$1,
+  createRouter: createAppRouter,
   RouterProvider: RouterProvider,
   NodeRoute: NodeRoute
 };
 
-export { BaseLink, createAppRouter, RouterProvider, NodeRoute };export default index;
+export { BaseLink, createAppRouter as createRouter, RouterProvider, NodeRoute };export default index;

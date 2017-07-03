@@ -12,7 +12,7 @@ export default {
 
 export {
   BaseLink,
-  createAppRouter,
+  createRouter,
   RouterProvider,
   NodeRoute
 };
