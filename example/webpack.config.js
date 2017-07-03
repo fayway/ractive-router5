@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 
-
 module.exports = () => {
   return {
     entry: [
@@ -10,7 +9,7 @@ module.exports = () => {
     output: {
       filename: './example/dist/bundle.js',
     },
-    // devtool: 'eval',
+    devtool: 'cheap-module-eval-source-map',
     module: {
       rules: [
         {

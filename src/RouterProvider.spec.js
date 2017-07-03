@@ -21,6 +21,13 @@ describe('RouterProvider', () => {
       },
       notify(state) {
         this.callbacks.map(cb => cb(state));
+      },
+      getRoutesConfig() {
+        return [{
+          name: 'home',
+          path: '/',
+          home: true
+        }]
       }
     };
 

@@ -46,7 +46,8 @@ function createAppRouter$1(routes) {
 
   var router = createRouter(routes, {
       defaultRoute: defaultRouteConf ? defaultRouteConf.name : undefined,
-      allowNotFound: true
+      allowNotFound: true,
+      autoCleanUp: false
     })
     .usePlugin(loggerPlugin)
     .usePlugin(listenersPlugin())
@@ -66,12 +67,15 @@ var NodeRoute = Ractive.extend({
   oninit: function oninit() {
     var this$1 = this;
 
+    console.log('NodeRoute oninit', this.get('routeNode'));
+
     var routerProvider = this.findParent('RouterProvider');
     if (!routerProvider) {
       throw new Error('NodeRoute Component must be placed within a RouterProvider Component');
     }
     routerProvider.observe('route', function (route) {
       this$1.set('route', route);
+      // console.log('Comparing new route with', this.get('routeNode'));
       this$1.set('active', route && route.name.indexOf(this$1.get('routeNode')) === 0);
     });
   }
@@ -97,7 +101,11 @@ var RouterProvider = Ractive.extend({
     this.router.addListener(this.mapRouteStateToData);
   },
   oncomplete: function oncomplete(){
-    this.router.start();
+    var routes = this.router.getRoutesConfig();
+    var home = routes.find( function (route) { return route.home; });
+    if (home) {
+      this.router.start(home.path);
+    }
   },
   onteardown: function onteardown() {
     this.router.removeListener(this.mapRouteStateToData);

@@ -26,6 +26,7 @@ export default Ractive.extend({
       <input name='title' value={{title}} />
       <textarea name='message' value={{message}} />
       {{#if warning}}<p>Clear inputs before continuing</p>{{/if}}
+      <div><strong>Not working (yet)</strong></div>
     </div>
   `,
   oncomplete() {

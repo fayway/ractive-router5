@@ -8,7 +8,8 @@ export default function createAppRouter(routes) {
 
   const router = createRouter(routes, {
       defaultRoute: defaultRouteConf ? defaultRouteConf.name : undefined,
-      allowNotFound: true
+      allowNotFound: true,
+      autoCleanUp: false
     })
     .usePlugin(loggerPlugin)
     .usePlugin(listenersPlugin())

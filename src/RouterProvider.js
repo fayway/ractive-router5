@@ -22,7 +22,11 @@ export default Ractive.extend({
     this.router.addListener(this.mapRouteStateToData);
   },
   oncomplete(){
-    this.router.start();
+    const routes = this.router.getRoutesConfig();
+    const home = routes.find( route => route.home);
+    if (home) {
+      this.router.start(home.path);
+    }
   },
   onteardown() {
     this.router.removeListener(this.mapRouteStateToData);
