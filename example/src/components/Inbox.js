@@ -10,7 +10,7 @@ export default Ractive.extend({
   },
   template: `
     <div class='inbox'>
-      <NodeRoute routeNode="inbox"><InboxList emails={{emails}} /></NodeRoute>
+      <InboxList emails={{emails}} />
       <NodeRoute routeNode="inbox.message"><Message messageId={{ route.params.id }} />
     </div>
   `,

@@ -13,7 +13,7 @@ export default Ractive.extend({
     </ul>
   `,
   oninit() {
-    console.log('InboxList oninit');
+    console.log('InboxList oninit', this.get('emails'));
   },
   oncomplete() {
     console.log('InboxList oncomplete');

@@ -1,4 +1,5 @@
 import Ractive from 'ractive';
+import router from '../router';
 
 export default Ractive.extend({
   template: `
@@ -8,7 +9,8 @@ export default Ractive.extend({
     </li>
   `,
   clickHandler(id) {
-    this.get('router').navigate('inbox.message', {id});
+    // const router = this.findParent('RouterProvider').get('router');
+    router.navigate('inbox.message', {id});
   },
   oninit() {
     console.log('InboxItem oninit');

@@ -4,12 +4,11 @@ import App from './components/App';
 
 import router from './router';
 
+Ractive.components.App = App;
+Ractive.components.RouterProvider = RouterProvider;
+
 new Ractive({
   el: '#app',
-  components: {
-    RouterProvider,
-    App
-  },
   data: {
     router
   },
