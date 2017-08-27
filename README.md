@@ -2,6 +2,10 @@
 
 > Higher-order components and components for [Ractive](https://ractive.js.org/) when using [router5](https://github.com/router5/router5).
 
+# Why
+
+When using Angular, Vue or React, the question of the router to use doesn't arise at all. This is not the case when your app is built on top af a pure UI library like Ractive.js. In the other side, router5 seems so flexible and so powerful to be the first choice as a framework agnostic router.
+
 ## How to
 
 ### Routes
