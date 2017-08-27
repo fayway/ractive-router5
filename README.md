@@ -73,12 +73,10 @@ Inbox example
 ```javascript
 export default Ractive.extend({
   template: `
-    <NodeRoute routeNode="inbox">
       <div class='inbox'>
           <NodeRoute routeNode="inbox"><InboxList emails={{emails}} /></NodeRoute>
           <NodeRoute routeNode="inbox.message"><Message messageId={{ route.params.id }} /></NodeRoute>
       </div>
-    </NodeRoute>
   `
 });
 ```
@@ -104,6 +102,7 @@ export default Ractive.extend({
 git clone https://github.com/fayway/ractive-router5.git
 cd ractive-router5
 npm install
+npm start //For example
 npm test
 npm run cover
 ```
