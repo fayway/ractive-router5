@@ -59,7 +59,6 @@ new Ractive({
     <RouterProvider router="{{router}}">
       <NodeRoute routeNode="inbox"><Inbox /></NodeRoute>
       <NodeRoute routeNode="compose"><Compose /></NodeRoute>
-      <NodeRoute routeNode="contacts"><Contacts /></NodeRoute>
       <NodeRoute routeNode="notfound"><NotFound /></NodeRoute>
     </RouterProvider>
   `
@@ -76,7 +75,7 @@ export default Ractive.extend({
     <NodeRoute routeNode="inbox">
       <div class='inbox'>
           <NodeRoute routeNode="inbox"><InboxList emails={{emails}} /></NodeRoute>
-          <NodeRoute routeNode="inbox.message"><Message messageId={{ route.params.id }} /></NodeRoute>
+          <NodeRoute routeNode="inbox.message"><Message /></NodeRoute>
       </div>
     </NodeRoute>
   `
@@ -89,7 +88,7 @@ export default Ractive.extend({
 export default Ractive.extend({
   template: `
     <nav>
-      <BaseLink routeName="inbox" routeOptions="{{ {reload: true} }}">Inbox</BaseLink>
+      <BaseLink routeName="inbox">Inbox</BaseLink>
       <BaseLink routeName="compose">Compose</BaseLink>
       <BaseLink routeName="contacts">Contacts</BaseLink>
     </nav>

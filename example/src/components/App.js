@@ -15,9 +15,9 @@ export default Ractive.extend({
     <div class='mail-client'>
       <Nav></Nav>
       <main>
-        <NodeRoute routeNode="inbox"><Inbox /></NodeRoute>
-        <NodeRoute routeNode="compose"><Compose /></NodeRoute>
-        <NodeRoute routeNode="notfound"><NotFound /></NodeRoute>
+        <NodeRoute name="inbox"><Inbox /></NodeRoute>
+        <NodeRoute name="compose"><Compose /></NodeRoute>
+        <NodeRoute name="notfound"><NotFound /></NodeRoute>
       </main>
     </div>
   `,

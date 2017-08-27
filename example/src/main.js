@@ -13,14 +13,16 @@ new Ractive({
     router
   },
   template: `
-    <RouterProvider router="{{router}}">
-      <App></App>
-    </RouterProvider>
-  `,
+  <RouterProvider router="{{router}}">
+    <App></App>
+  </RouterProvider>
+`,
   oninit() {
-    console.log('Main oninit')
+    console.log('Main oninit');
   },
   oncomplete() {
-    console.log('Main oncomplete')
+    console.log('Main oncomplete');
+    router.navigate('inbox')
   }
 });
+

@@ -8,9 +8,8 @@ export default Ractive.extend({
   oninit() {
     console.log('Compose oninit');
 
-    const router = this.get('router');
-    //todo
-    router.canDeactivate('compose', this.canDeactivate.bind(this));
+    this.router = this.findParent('RouterProvider').get('router');
+    this.router.canDeactivate('compose', () => this.canDeactivate.bind(this)); //TODO Not Working 😭
   },
   canDeactivate() {
     if (this.get('title') || this.get('message')) {

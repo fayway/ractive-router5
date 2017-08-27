@@ -1,26 +1,33 @@
 import Ractive from 'ractive';
 
-export default Ractive.extend({
+export const NodeRoute = Ractive.extend({
+  name: 'NodeRoute',
   template: `
-    {{#if active}}
-      {{yield}}
-    {{/if}}
+  {{#if isActive}}
+    {{yield}}
+  {{/if}}
   `,
-  data: {
-    route: undefined,
-    active: false
-  },
   oninit() {
-    console.log('NodeRoute oninit', this.get('routeNode'));
+    if (Ractive.DEBUG) {
+      console.log('NodeRoute Init', this.get('name'));
+    }
 
     const routerProvider = this.findParent('RouterProvider');
     if (!routerProvider) {
-      throw new Error('NodeRoute Component must be placed within a RouterProvider Component');
+      throw new Error('NodeRoute Component must be placed within a RouterProvider Container');
     }
-    routerProvider.observe('route', (route) => {
-      this.set('route', route);
-      // console.log('Comparing new route with', this.get('routeNode'));
-      this.set('active', route && route.name.indexOf(this.get('routeNode')) === 0);
-    });
+
+    this.router  = routerProvider.get('router');
+
+    this.listener = (toState) => {
+      this.set('isActive', toState.name.indexOf(this.get('name')) === 0);
+      this.set('route', toState);
+    };
+    this.router.addListener(this.listener);
+  },
+  onteardown() {
+    this.router.removeListener(this.listener);
   }
 });
+
+export default NodeRoute;
