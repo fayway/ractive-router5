@@ -4,16 +4,16 @@ import InboxList from './InboxList';
 import Message from './Message';
 
 export default Ractive.extend({
+  template: `
+    <div class='inbox'>
+      <InboxList emails={{emails}} ></InboxList>
+      <NodeRoute name="inbox.message"><Message /></NodeRoute>
+    </div>
+  `,
   components: {
     InboxList,
     Message
   },
-  template: `
-    <div class='inbox'>
-      <NodeRoute routeNode="inbox"><InboxList emails={{emails}} /></NodeRoute>
-      <NodeRoute routeNode="inbox.message"><Message messageId={{ route.params.id }} />
-    </div>
-  `,
   oninit() {
     console.log('Inbox oninit');
     this.set('emails', getEmails());

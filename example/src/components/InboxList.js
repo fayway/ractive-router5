@@ -8,7 +8,7 @@ export default Ractive.extend({
   template: `
     <ul class='mail-list'>
         {{#each emails as mail}}
-            <InboxItem main={{mail}} />
+            <InboxItem mail={{mail}} />
         {{/each}}
     </ul>
   `,

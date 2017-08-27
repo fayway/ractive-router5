@@ -7,11 +7,12 @@ export default Ractive.extend({
       <p>{{{mail.mailMessage}}}</p>
     </li>
   `,
-  clickHandler(id) {
-    this.get('router').navigate('inbox.message', {id});
-  },
   oninit() {
     console.log('InboxItem oninit');
+    this.router = this.findParent('RouterProvider').get('router');
+  },
+  clickHandler(id) {
+    this.router.navigate('inbox.message', {id});
   },
   oncomplete() {
     console.log('InboxItem oncomplete');

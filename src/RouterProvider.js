@@ -1,34 +1,34 @@
 import Ractive from 'ractive';
-import BaseLink from './BaseLink';
 import NodeRoute from './NodeRoute';
+import BaseLink from './BaseLink';
 
-Ractive.components.BaseLink = BaseLink;
-Ractive.components.NodeRoute = NodeRoute;
-
-export default Ractive.extend({
-  data: {
-    route: null
-  },
+export const RouterProvider = Ractive.extend({
+  name: 'RouterProvider',
   template: `
+    {{#if ready}}
       {{>content}}
+    {{/if}}
   `,
-  oninit() {
-    this.router = this.get('router');
-
-    this.mapRouteStateToData = (toState) => {
-      this.set('route', toState);
-    };
-
-    this.router.addListener(this.mapRouteStateToData);
+  data: {
+    ready: false
   },
-  oncomplete(){
-    const routes = this.router.getRoutesConfig();
-    const home = routes.find( route => route.home);
-    if (home) {
-      this.router.start(home.path);
+  oninit() {
+    if (Ractive.DEBUG) {
+      console.log('RouterProvider init');
     }
   },
-  onteardown() {
-    this.router.removeListener(this.mapRouteStateToData);
+  oncomplete() {
+    console.log('RouterProvider complete');
+    const { router } = this.get();
+
+
+    router.start('home', () => this.set('ready', true));
   }
 });
+
+Ractive.components.RouterProvider = RouterProvider;
+Ractive.components.NodeRoute = NodeRoute;
+Ractive.components.BaseLink = BaseLink;
+
+
+export default RouterProvider;
