@@ -1,6 +1,5 @@
 import Ractive from 'ractive';
-import createRouter from 'router5';
-import loggerPlugin from 'router5/plugins/logger';
+import { createRouter, loggerPlugin } from 'router5';
 import listenersPlugin from 'router5/plugins/listeners';
 import browserPlugin from 'router5/plugins/browser';
 
@@ -41,76 +40,79 @@ var BaseLink = Ractive.extend({
   }
 });
 
-function createAppRouter(routes) {
+var createAppRouter = function (routes) {
   var defaultRouteConf = routes.find(function (route) { return route.default === true; });
 
   var router = createRouter(routes, {
       defaultRoute: defaultRouteConf ? defaultRouteConf.name : undefined,
-      allowNotFound: true,
-      autoCleanUp: false
+      allowNotFound: true
     })
     .usePlugin(loggerPlugin)
     .usePlugin(listenersPlugin())
     .usePlugin(browserPlugin({
-      useHash: true
-    }));
+        useHash: true
+      })
+    );
 
+  router.getRoutesConfig = function () { return routes };
   return router;
-}
+
+};
 
 var NodeRoute = Ractive.extend({
-  template: "\n    {{#if active}}\n      {{yield}}\n    {{/if}}\n  ",
-  data: {
-    route: undefined,
-    active: false
-  },
+  name: 'NodeRoute',
+  template: "\n  {{#if isActive}}\n    {{yield}}\n  {{/if}}\n  ",
   oninit: function oninit() {
     var this$1 = this;
 
-    console.log('NodeRoute oninit', this.get('routeNode'));
+    if (Ractive.DEBUG) {
+      console.log('NodeRoute Init', this.get('name'));
+    }
 
     var routerProvider = this.findParent('RouterProvider');
     if (!routerProvider) {
-      throw new Error('NodeRoute Component must be placed within a RouterProvider Component');
+      throw new Error('NodeRoute Component must be placed within a RouterProvider Container');
     }
-    routerProvider.observe('route', function (route) {
-      this$1.set('route', route);
-      // console.log('Comparing new route with', this.get('routeNode'));
-      this$1.set('active', route && route.name.indexOf(this$1.get('routeNode')) === 0);
-    });
-  }
-});
 
-Ractive.components.BaseLink = BaseLink;
-Ractive.components.NodeRoute = NodeRoute;
+    this.router  = routerProvider.get('router');
 
-var RouterProvider = Ractive.extend({
-  data: {
-    route: null
-  },
-  template: "\n      {{>content}}\n  ",
-  oninit: function oninit() {
-    var this$1 = this;
-
-    this.router = this.get('router');
-
-    this.mapRouteStateToData = function (toState) {
+    this.listener = function (toState) {
+      this$1.set('isActive', toState.name.indexOf(this$1.get('name')) === 0);
       this$1.set('route', toState);
     };
-
-    this.router.addListener(this.mapRouteStateToData);
-  },
-  oncomplete: function oncomplete(){
-    var routes = this.router.getRoutesConfig();
-    var home = routes.find( function (route) { return route.home; });
-    if (home) {
-      this.router.start(home.path);
-    }
+    this.router.addListener(this.listener);
   },
   onteardown: function onteardown() {
-    this.router.removeListener(this.mapRouteStateToData);
+    this.router.removeListener(this.listener);
   }
 });
+
+var RouterProvider = Ractive.extend({
+  name: 'RouterProvider',
+  template: "\n    {{#if ready}}\n      {{>content}}\n    {{/if}}\n  ",
+  data: {
+    ready: false
+  },
+  oninit: function oninit() {
+    if (Ractive.DEBUG) {
+      console.log('RouterProvider init');
+    }
+  },
+  oncomplete: function oncomplete() {
+    var this$1 = this;
+
+    console.log('RouterProvider complete');
+    var ref = this.get();
+    var router = ref.router;
+
+
+    router.start('home', function () { return this$1.set('ready', true); });
+  }
+});
+
+Ractive.components.RouterProvider = RouterProvider;
+Ractive.components.NodeRoute = NodeRoute;
+Ractive.components.BaseLink = BaseLink;
 
 var index = {
   BaseLink: BaseLink,
